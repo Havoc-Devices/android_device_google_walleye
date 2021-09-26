@@ -33,13 +33,12 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/telephony_vendor.mk)
 
 # Inherit some common Havoc-OS stuff.
 HAVOC_BUILD_TYPE := Official
-HAVOC_MAINTAINER := Saurabh Jarial (bravesoul349)
-HAVOC_GROUP_URL := https://t.me/havoc_pixel2
 TARGET_BOOT_ANIMATION_RES := 1080
 TARGET_GAPPS_ARCH := arm64
 TARGET_INCLUDE_STOCK_ARCORE := true
 TARGET_SUPPORTS_GOOGLE_RECORDER := true
 TARGET_INCLUDE_WIFI_EXT := true
+TARGET_SYSTEM_PROP := $(LOCAL_PATH)/system.prop
 $(call inherit-product, vendor/havoc/config/common_full_phone.mk)
 
 # Inherit product specific makefiles
