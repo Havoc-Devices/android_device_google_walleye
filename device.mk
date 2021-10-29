@@ -14,7 +14,27 @@
 # limitations under the License.
 #
 
-LOCAL_PATH := device/google/muskie
+LOCAL_PATH := device/google/walleye
+
+PRODUCT_AAPT_CONFIG := normal
+PRODUCT_AAPT_PREF_CONFIG := xxhdpi
+PRODUCT_AAPT_PREBUILT_DPI := xxhdpi xhdpi hdpi
+
+PRODUCT_HARDWARE := walleye
+
+# To build walleye specific modules e.g. librecovery_ui_walleye.
+PRODUCT_SOONG_NAMESPACES += device/google/walleye
+
+# DEVICE_PACKAGE_OVERLAYS for the device should be before
+# including common overlays since the one listed first
+# takes precedence.
+ifdef DEVICE_PACKAGE_OVERLAYS
+$(warning Overlays defined in '$(DEVICE_PACKAGE_OVERLAYS)' will override '$(PRODUCT_HARDWARE)' overlays)
+endif
+DEVICE_PACKAGE_OVERLAYS += device/google/walleye/overlay
+
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.sf.lcd_density=420
 
 # Audio XMLs
 PRODUCT_COPY_FILES += \
@@ -140,18 +160,18 @@ BOARD_VENDOR_KERNEL_MODULES += \
 endif
 
 PRODUCT_COPY_FILES += \
-    device/google/muskie/nfc/libnfc-nxp.muskie.conf:$(TARGET_COPY_OUT_VENDOR)/etc/libnfc-nxp.conf
+    device/google/walleye/nfc/libnfc-nxp.muskie.conf:$(TARGET_COPY_OUT_VENDOR)/etc/libnfc-nxp.conf
 
 PRODUCT_COPY_FILES += \
-    device/google/muskie/thermal-engine.conf:$(TARGET_COPY_OUT_VENDOR)/etc/thermal-engine.conf \
-    device/google/muskie/thermal-engine-vr.conf:$(TARGET_COPY_OUT_VENDOR)/etc/thermal-engine-vr.conf
+    device/google/walleye/thermal-engine.conf:$(TARGET_COPY_OUT_VENDOR)/etc/thermal-engine.conf \
+    device/google/walleye/thermal-engine-vr.conf:$(TARGET_COPY_OUT_VENDOR)/etc/thermal-engine-vr.conf
 
 PRODUCT_COPY_FILES += \
-    device/google/muskie/powerhint.json:$(TARGET_COPY_OUT_VENDOR)/etc/powerhint.json
+    device/google/walleye/powerhint.json:$(TARGET_COPY_OUT_VENDOR)/etc/powerhint.json
 
 # Wifi configuration file
 PRODUCT_COPY_FILES += \
-    device/google/muskie/WCNSS_qcom_cfg.ini:$(TARGET_COPY_OUT_VENDOR)/firmware/wlan/qca_cld/WCNSS_qcom_cfg.ini
+    device/google/walleye/WCNSS_qcom_cfg.ini:$(TARGET_COPY_OUT_VENDOR)/firmware/wlan/qca_cld/WCNSS_qcom_cfg.ini
 
 #IMU calibration
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -162,3 +182,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.camera.notify_nfc=1
 
 PRODUCT_CHECK_ELF_FILES := true
+
+# Thermal HAL
+PRODUCT_COPY_FILES += \
+    device/google/walleye/thermal_info_config.json:$(TARGET_COPY_OUT_VENDOR)/etc/thermal_info_config.json
