@@ -21,6 +21,7 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/aosp_base_telephony.mk)
 
 $(call inherit-product, device/google/walleye/device.mk)
 $(call inherit-product-if-exists, vendor/google_devices/walleye/proprietary/device-vendor-walleye.mk)
+$(call inherit-product, vendor/google/walleye/walleye-vendor.mk)
 
 PRODUCT_PACKAGES += \
     vndk_package
